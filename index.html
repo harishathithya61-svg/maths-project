@@ -1,0 +1,356 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CampusConnect - Student Management</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f1f5f9;
+            color: #1e293b;
+            padding-bottom: 30px;
+        }
+
+        .dashboard-header {
+            background: #1e3a8a;
+            color: white;
+            text-align: center;
+            padding: 30px 15px;
+        }
+
+        .dashboard-header h1 {
+            margin-bottom: 8px;
+        }
+
+        .dashboard {
+            max-width: 1000px;
+            margin: 25px auto;
+            padding: 15px;
+        }
+
+        .student-section {
+            background: white;
+            padding: 22px;
+            margin-bottom: 22px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px #00000012;
+        }
+
+        h2 {
+            margin-bottom: 18px;
+            color: #1e3a8a;
+        }
+
+        h3 {
+            margin: 15px 0;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .stat-card {
+            background: #eff6ff;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-card p {
+            font-size: 28px;
+            font-weight: bold;
+            margin-top: 10px;
+            color: #2563eb;
+        }
+
+        input[type="text"],
+        input[type="search"],
+        input[type="file"],
+        select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+        }
+
+        label {
+            display: block;
+            margin: 12px 0;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 8px;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 11px 18px;
+            margin: 8px 5px 8px 0;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        .delete-btn {
+            background: #dc2626;
+        }
+
+        .delete-btn:hover {
+            background: #b91c1c;
+        }
+
+        .cancel-btn {
+            background: #64748b;
+        }
+
+        .student-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 16px;
+            margin: 12px 0;
+            border-radius: 8px;
+        }
+
+        .student-card h3 {
+            color: #1e40af;
+            margin-top: 0;
+        }
+
+        .pagination {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        #searchResult,
+        #deleteResult,
+        #updateResult,
+        #importStatus {
+            margin-top: 12px;
+        }
+
+        [hidden] {
+            display: none !important;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <header class="dashboard-header">
+        <h1>CampusConnect</h1>
+        <p>Student Activity Management System</p>
+    </header>
+
+
+    <main class="dashboard">
+
+        <!-- DASHBOARD STATISTICS -->
+
+        <section class="student-section">
+
+            <h2>Student Dashboard</h2>
+
+            <div class="stats-container">
+
+                <div class="stat-card">
+                    <h3>Total Students</h3>
+                    <p id="totalStudents">0</p>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Technical</h3>
+                    <p id="technicalCount">0</p>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Sports</h3>
+                    <p id="sportsCount">0</p>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Cultural</h3>
+                    <p id="culturalCount">0</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- STEP 4: ADD STUDENTS -->
+
+        <section class="student-section">
+
+            <h2>Add New Student</h2>
+
+            <form onsubmit="event.preventDefault(); handleAddStudent();">
+
+                <label for="studentId">Student ID</label>
+
+                <input
+                    type="text"
+                    id="studentId"
+                    placeholder="Example: S00006"
+                    required
+                >
+
+                <h3>Choose Activities</h3>
+
+                <label>
+                    <input type="checkbox" id="technical">
+                    Technical
+                </label>
+
+                <label>
+                    <input type="checkbox" id="sports">
+                    Sports
+                </label>
+
+                <label>
+                    <input type="checkbox" id="cultural">
+                    Cultural
+                </label>
+
+                <button type="submit">
+                    Add Student
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- STEP 5: SEARCH STUDENTS -->
+
+        <section class="student-section">
+
+            <h2>Search Students</h2>
+
+            <input
+                type="search"
+                id="searchId"
+                placeholder="Enter Student ID..."
+            >
+
+            <button type="button" onclick="searchStudent()">
+                Search Student
+            </button>
+
+            <div id="searchResult"></div>
+
+        </section>
+
+
+        <!-- STEP 6: DELETE STUDENTS -->
+
+        <section class="student-section">
+
+            <h2>Delete Student</h2>
+
+            <input
+                type="text"
+                id="deleteStudentId"
+                placeholder="Enter Student ID..."
+            >
+
+            <button
+                type="button"
+                class="delete-btn"
+                onclick="handleDeleteStudent()"
+            >
+                Delete Student
+            </button>
+
+            <div id="deleteResult"></div>
+
+        </section>
+
+
+        <!-- STEP 7: UPDATE STUDENTS -->
+
+        <section class="student-section">
+
+            <h2>Update Student Activities</h2>
+
+            <input
+                type="text"
+                id="updateStudentId"
+                placeholder="Enter Student ID..."
+            >
+
+            <h3>Select New Activities</h3>
+
+            <label>
+                <input type="checkbox" id="updateTechnical">
+                Technical
+            </label>
+
+            <label>
+                <input type="checkbox" id="updateSports">
+                Sports
+            </label>
+
+            <label>
+                <input type="checkbox" id="updateCultural">
+                Cultural
+            </label>
+
+            <button
+                type="button"
+                onclick="handleUpdateStudent()"
+            >
+                Update Student
+            </button>
+
+            <div id="updateResult"></div>
+
+        </section>
+
+
+        <!-- STUDENT RECORDS -->
+
+        <section class="student-section">
+
+            <h2>All Student Records</h2>
+
+            <p id="recordSummary">Loading students...</p>
+
+            <div id="studentList"></div>
+
+        </section>
+
+    </main>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="css/js/app.js"></script>
+
+</body>
+
+</html>

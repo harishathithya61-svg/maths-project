@@ -1,0 +1,164 @@
+
+/* 1. Basic page settings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 2. Main body design */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f7fb;
+    color: #263247;
+    line-height: 1.6;
+}
+
+/* 3. Navigation bar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 8%;
+    background-color: white;
+}
+
+/* Website logo */
+.logo {
+    color: #123b63;
+    font-size: 25px;
+}
+
+/* Navigation links */
+.nav-links a {
+    text-decoration: none;
+    color: #263247;
+    margin-left: 25px;
+    font-weight: bold;
+}
+
+.nav-links a:hover {
+    color: #0d9488;
+}
+
+/* 4. Welcome section */
+.hero {
+    text-align: center;
+    padding: 90px 20px;
+    background-color: #eaf3fa;
+}
+
+/* Small tagline */
+.tagline {
+    color: #0d9488;
+    font-weight: bold;
+    letter-spacing: 2px;
+    font-size: 13px;
+}
+
+/* Main heading */
+.hero h1 {
+    color: #123b63;
+    font-size: 42px;
+    margin: 20px 0;
+}
+
+/* Description */
+.description {
+    max-width: 650px;
+    margin: 0 auto 25px;
+    color: #526174;
+    font-size: 17px;
+}
+
+/* Main button */
+.main-button {
+    background-color: #0d9488;
+    color: white;
+    border: none;
+    padding: 14px 25px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.main-button:hover {
+    background-color: #08786f;
+}
+
+/* 5. Features section */
+.features {
+    padding: 60px 8%;
+    text-align: center;
+}
+
+.features h2 {
+    color: #123b63;
+    margin-bottom: 30px;
+}
+
+/* Feature card layout */
+.card-container {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+}
+
+/* Individual cards */
+.card {
+    background-color: white;
+    padding: 30px 20px;
+    border-radius: 12px;
+    flex: 1;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+}
+
+.card h3 {
+    color: #0d9488;
+    margin-bottom: 12px;
+}
+
+.card p {
+    color: #526174;
+}
+
+/* 6. About section */
+.about {
+    background-color: white;
+    text-align: center;
+    padding: 50px 10%;
+}
+
+.about h2 {
+    color: #123b63;
+    margin-bottom: 15px;
+}
+
+/* 7. Footer */
+footer {
+    background-color: #123b63;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+/* 8. Mobile responsive design */
+@media (max-width: 700px) {
+
+    .navbar {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .nav-links a {
+        margin: 0 8px;
+    }
+
+    .hero h1 {
+        font-size: 30px;
+    }
+
+    .card-container {
+        flex-direction: column;
+    }
+}
